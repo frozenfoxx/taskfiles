@@ -1,7 +1,17 @@
 ---
-version: '3'
+version: "3"
 
 vars:
+  ANSIBLE_ARGS: ""
 
 tasks:
+  inventory:
+    desc: "List all inventory hosts"
+    cmds:
+      - ansible-inventory --graph
+
+  lint:
+    desc: "Check syntax"
+    cmds:
+      - ansible-lint .
 
