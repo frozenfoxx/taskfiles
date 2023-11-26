@@ -1,0 +1,11 @@
+---
+version: '3'
+
+vars:
+
+tasks:
+  submodule:update:
+    desc: "Update submodules"
+    cmds:
+      - git submodule update --init --recursive
+
