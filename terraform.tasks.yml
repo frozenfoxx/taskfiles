@@ -4,4 +4,20 @@ version: '3'
 vars:
 
 tasks:
+  apply:
+    desc: "Apply changes to deployment"
 
+  destroy:
+    desc: "Destroy deployment"
+
+  fmt:
+    desc: "Ensure formatting is correct"
+
+  init:
+    desc: "Initialize the Terraform directory"
+
+  plan:
+    desc: "Create a plan for deployment"
+
+  validate:
+    desc: "Validate the HCL2 code"
