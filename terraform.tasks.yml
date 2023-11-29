@@ -2,22 +2,69 @@
 version: '3'
 
 vars:
+  TFVAR_FILE: ""
+  TFPLAN: .tfplan
+  TFDOC_OUTPUT: README.md
+  TF_BACKEND: ""
+  TERRAFORM_ARGS: ""
 
 tasks:
   apply:
     desc: "Apply changes to deployment"
+    cmds:
+      - terraform apply -auto-approve -compact-warnings -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+
+  clean:
+    desc: "Clean up current Terraform directory"
+    cmds:
+      - echo "Cleaning $(pwd)..."
+      - rm -rf ./.terraform
+      - rm -f .terraform.lock.hcl
+      - rm -rf {{.TFPLAN}}
+      - rm -f terraform.log
 
   destroy:
     desc: "Destroy deployment"
+    cmds:
+      - terraform destroy -auto-approve -input=false -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+
+  docs:
+    desc: "Generate documentation"
+    cmds:
+      - docker run --rm -v $(pwd):/terraform-docs quay.io/terraform-docs/terraform-docs:latest markdown /terraform-docs > {{.TFDOC_OUTPUT}}
 
   fmt:
     desc: "Ensure formatting is correct"
+    cmds:
+      - terraform fmt -recursive .
 
   init:
     desc: "Initialize the Terraform directory"
+    cmds:
+      - terraform init {{.TF_BACKEND}}
+
+  lint:
+    desc: "Run a Terraform linter"
+    cmds:
+      - docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --var-file={{.TFVAR_FILE}} --format=compact
+
+  output:
+    desc: "Terraform output"
+    cmds:
+      - terraform output
 
   plan:
     desc: "Create a plan for deployment"
+    cmds:
+      - terraform plan -compact-warnings -out={{.TFPLAN}} -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+
+  update:
+    desc: "Update modules"
+    cmds:
+      - terraform get -update
+      - task: validate
 
   validate:
     desc: "Validate the HCL2 code"
+    cmds:
+      - terraform validate
