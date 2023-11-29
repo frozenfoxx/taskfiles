@@ -2,6 +2,40 @@
 version: '3'
 
 vars:
+  RCLONE_SOURCE: ""
+  RCLONE_DEST: ""
 
 tasks:
+  copy:
+    desc: "Copy RCLONE_SOURCE to RCLONE_DEST"
+    requires:
+      RCLONE_DEST:
+      RCLONE_SOURCE:
+    cmds:
+      - rclone copy "{{.RCLONE_SOURCE}}" "{{.RCLONE_DEST}}"
 
+  install:
+    desc: "Install rclone if not available"
+    cmds:
+      - task: install:{{.OS}}
+
+  install:linux:
+    platforms: [linux]
+    cmds:
+      - curl https://rclone.org/install.sh | sudo bash || true
+    status:
+      - type rclone > /dev/null
+  
+  install:darwin:
+    platforms: [darwin]
+    cmds:
+      - brew install rclone
+    status:
+      - type rclone > /dev/null
+  
+  install:windows:
+    platforms: [windows]
+    cmds:
+      - winget install -e --id Rclone.Rclone
+    status:
+      - ! where rclone
