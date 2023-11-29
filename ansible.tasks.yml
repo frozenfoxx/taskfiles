@@ -5,12 +5,39 @@ vars:
   ANSIBLE_ARGS: ""
 
 tasks:
+  deps:
+    desc: "Install dependencies"
+    cmds:
+      - pip install -r requirements.txt
+      - task: galaxy
+
   inventory:
     desc: "List all inventory hosts"
     cmds:
       - ansible-inventory --graph
 
+  galaxy:
+    desc: "Install roles and collections from Ansible Galaxy"
+    cmds:
+      - ansible-galaxy install -p {{.USER_WORKING_DIR}}/roles -r {{.USER_WORKING_DIR}}/requirements.yml
+      - ansible-galaxy collection install -p {{.USER_WORKING_DIR}}/collections -r {{.USER_WORKING_DIR}}/requirements.yml
+
   lint:
     desc: "Check syntax"
     cmds:
       - ansible-lint *
+
+  ping:
+    desc: "Ping all nodes"
+    cmds:
+      - ansible --one-line -m ping
+
+  playbook:
+    desc: "Run an Ansible playbook by name"
+    cmds:
+      - ansible-playbook {{.CLI_ARGS}}.yml
+
+  playbook:debug:
+    desc: "Run an Ansible playbook by name with maximum debugging"
+    cmds:
+      - ansible-playbook -vvvv {{.CLI_ARGS}}.yml
