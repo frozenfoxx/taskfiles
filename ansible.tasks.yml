@@ -13,5 +13,4 @@ tasks:
   lint:
     desc: "Check syntax"
     cmds:
-      - ansible-lint .
-
+      - ansible-lint *

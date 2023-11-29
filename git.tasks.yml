@@ -8,4 +8,3 @@ tasks:
     desc: "Update submodules"
     cmds:
       - git submodule update --init --recursive
-
