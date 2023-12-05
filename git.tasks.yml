@@ -4,17 +4,82 @@ version: '3'
 vars:
 
 tasks:
+  fetch:
+    desc: "Fetch from origin"
+    cmds:
+      - git fetch --verbose --all --force --tags --prune --prune-tags
+
+  lfs:init:
+    desc: "Initialize Git LFS"
+    cmds:
+      - git lfs init
+      - git lfs pull
+    status:
+      - test -d .git/lfs
+
+  pop:
+    desc: "Pop stashed changes"
+    cmds:
+      - git stash pop
+
   pull:
     desc: "Pull and rebase"
     cmds:
       - git pull --rebase
+  
+  push:
+    vars:
+      GIT_BRANCH:
+        sh: git rev-parse --abbrev-ref HEAD || echo unknown
+    cmds:
+      - echo {{.GIT_BRANCH}}
+      - git push origin {{.GIT_BRANCH}}
 
   reset:dir:
     desc: "Reset all changes in a directory tree path"
     cmds:
       git checkout -f HEAD -- {{.CLI_ARGS}}
 
+  stash:
+    desc: "Stash changes"
+    cmds:
+      - git stash
+
+  tags:
+    desc: "List tags"
+    cmds:
+      - git --no-pager tag --list -n --sort=-v:refname
+    silent: true
+
+  tags:create:
+    desc: "Create a tag"
+    vars:
+      GIT_TAG: "{{default .DOCKER_TAG .GIT_TAG}}"
+    preconditions:
+      - sh: "{{if empty .GIT_TAG}}false{{end}}"
+        msg: "error: variable GIT_TAG is required"
+      cmds:
+        - git tag --annotate --message="release {{.GIT_TAG}} --sign {{.GIT_TAG}}"
+        - task: tags
+      silent: true
+
+  tags:push:
+    desc: "Push a tag to origin"
+    preconditions:
+      - sh: "{{if empty .GIT_TAG}}false{{end}}"
+        msg: "error: variable GIT_TAG is required"
+      cmds:
+        - git push origin {{.GIT_TAG}}
+        - task: tags:remote
+      silent: true
+
+  tags:remote:
+    desc: "List remote tags"
+    cmds:
+      - git --no-pager ls-remote --tags --refs origin
+    silent: true
+
   submodule:update:
     desc: "Update submodules"
     cmds:
-      - git submodule update --init --recursive
+      - git submodule update --init --remote --recursive
