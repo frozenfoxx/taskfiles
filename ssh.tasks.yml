@@ -1,0 +1,25 @@
+---
+version: '3'
+
+vars:
+  SSH_DIR: "~/.ssh"
+
+tasks:
+  dir:create:
+    desc: "Create an SSH directory"
+    cmds:
+      - cmd: mkdir -p {{.SSH_DIR}} && chmod 700 {{.SSH_DIR}}
+        platforms: [linux]
+      - cmd: md {{.SSH_DIR}} && chmod 700 {{.SSH_DIR}}
+        platforms: [windows]
+    
+  permissions:
+    desc: "Set permissions for SSH config files"
+    cmds:
+      - chmod 700 {{.SSH_DIR}} || true
+      - chmod 600 {{.SSH_DIR}}/* || true
+      - chmod 644 {{.SSH_DIR}}/*.pub || true
+      - chmod 644 {{.SSH_DIR}}/authorized* || true
+      - chmod 644 {{.SSH_DIR}}/config || true
+    preconditions:
+      - test -d {{.SSH_DIR}}
