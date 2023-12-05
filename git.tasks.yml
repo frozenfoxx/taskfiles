@@ -9,6 +9,11 @@ tasks:
     cmds:
       - git pull --rebase
 
+  reset:dir:
+    desc: "Reset all changes in a directory tree path"
+    cmds:
+      git checkout -f HEAD -- {{.CLI_ARGS}}
+
   submodule:update:
     desc: "Update submodules"
     cmds:
