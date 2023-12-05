@@ -4,6 +4,11 @@ version: '3'
 vars:
 
 tasks:
+  pull:
+    desc: "Pull and rebase"
+    cmds:
+      - git pull --rebase
+
   submodule:update:
     desc: "Update submodules"
     cmds:
