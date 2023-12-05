@@ -1,6 +1,9 @@
 ---
 version: "3"
 
+env:
+  ANSIBLE_CONFIG: "{{.USER_WORKING_DIR}}/ansible.cfg"
+
 vars:
   ANSIBLE_ARGS: ""
 
@@ -19,8 +22,14 @@ tasks:
   galaxy:
     desc: "Install roles and collections from Ansible Galaxy"
     cmds:
-      - ansible-galaxy install -p {{.USER_WORKING_DIR}}/roles -r {{.USER_WORKING_DIR}}/requirements.yml
+      - ansible-galaxy install -p {{.USER_WORKING_DIR}}/roles_galaxy -r {{.USER_WORKING_DIR}}/requirements.yml
       - ansible-galaxy collection install -p {{.USER_WORKING_DIR}}/collections -r {{.USER_WORKING_DIR}}/requirements.yml
+
+  galaxy:clean:
+    desc: "Clean roles and collections installed from Ansible Galaxy"
+    cmds:
+      - rm -rf roles_galaxy/*
+      - rm -rf collections/*
 
   lint:
     desc: "Check syntax"
