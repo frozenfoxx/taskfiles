@@ -27,6 +27,11 @@ tasks:
     desc: "Destroy deployment"
     cmds:
       - terraform destroy -auto-approve -input=false -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+  
+  destroy:resource:
+    desc: "Destroy resource by name"
+    cmds:
+      - terraform destroy -auto-approve -input=false -var-file={{.TFVAR_FILE}} -target {{.CLI_ARGS}} {{.TERRAFORM_ARGS}}
 
   docs:
     desc: "Generate documentation"

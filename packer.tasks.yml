@@ -1,0 +1,37 @@
+---
+version: '3'
+
+vars:
+  PACKER_ARGS: ""
+  PATH: "."
+
+tasks:
+  validate:
+    desc: "Validate configuration"
+    cmds:
+      - packer validate {{.PACKER_ARGS}} {{.PATH}}
+    silent: true
+  
+  build:
+    desc: "Build a packer configuration"
+    cmds:
+      - packer build {{.PACKER_ARGS}} {{.PATH}}
+    silent: true
+
+  debug:
+    desc: "Debug a packer build configuration"
+    cmds:
+      - packer build -debug {{.PACKER_ARGS}} {{.PATH}}
+    silent: true
+
+  init:
+    desc: "Initialize Packer configuration"
+    cmds:
+      - packer init {{.PATH}}
+    silent: true
+
+  fmt:
+    desc: "Format Packer source code"
+    cmds:
+      - packer fmt -recursive {{.PATH}}
+    silent: true

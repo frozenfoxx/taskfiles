@@ -17,7 +17,7 @@ tasks:
   install:
     desc: "Install rclone if not available"
     cmds:
-      - task: install:{{.OS}}
+      - task: install:{{OS}}
 
   install:linux:
     platforms: [linux]
