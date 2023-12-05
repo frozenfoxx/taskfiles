@@ -22,6 +22,7 @@ tasks:
   galaxy:
     desc: "Install roles and collections from Ansible Galaxy"
     cmds:
+      - task: galaxy:clean
       - ansible-galaxy install -p {{.USER_WORKING_DIR}}/roles_galaxy -r {{.USER_WORKING_DIR}}/requirements.yml
       - ansible-galaxy collection install -p {{.USER_WORKING_DIR}}/collections -r {{.USER_WORKING_DIR}}/requirements.yml
 
