@@ -45,9 +45,9 @@ tasks:
   playbook:
     desc: "Run an Ansible playbook by name"
     cmds:
-      - ansible-playbook {{.CLI_ARGS}}.yml
+      - ansible-playbook {{.CLI_ARGS}}
 
   playbook:debug:
     desc: "Run an Ansible playbook by name with maximum debugging"
     cmds:
-      - ansible-playbook -vvvv {{.CLI_ARGS}}.yml
+      - ansible-playbook -vvvv {{.CLI_ARGS}}
