@@ -2,13 +2,14 @@
 version: '3'
 
 vars:
-  RCLONE_SOURCE: ""
   RCLONE_DEST: ""
+  RCLONE_SOURCE: ""
 
 tasks:
   copy:
     desc: "Copy RCLONE_SOURCE to RCLONE_DEST"
-    requires: [ RCLONE_DEST, RCLONE_SOURCE ]
+    requires:
+      vars: [RCLONE_DEST, RCLONE_SOURCE]
     cmds:
       - rclone copy "{{.RCLONE_SOURCE}}" "{{.RCLONE_DEST}}"
 
