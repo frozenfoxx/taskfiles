@@ -58,20 +58,20 @@ tasks:
     preconditions:
       - sh: "{{if empty .GIT_TAG}}false{{end}}"
         msg: "error: variable GIT_TAG is required"
-      cmds:
-        - git tag --annotate --message="release {{.GIT_TAG}} --sign {{.GIT_TAG}}"
-        - task: tags
-      silent: true
+    cmds:
+      - git tag --annotate --message="release {{.GIT_TAG}} --sign {{.GIT_TAG}}"
+      - task: tags
+    silent: true
 
   tags:push:
     desc: "Push a tag to origin"
     preconditions:
       - sh: "{{if empty .GIT_TAG}}false{{end}}"
         msg: "error: variable GIT_TAG is required"
-      cmds:
-        - git push origin {{.GIT_TAG}}
-        - task: tags:remote
-      silent: true
+    cmds:
+      - git push origin {{.GIT_TAG}}
+      - task: tags:remote
+    silent: true
 
   tags:remote:
     desc: "List remote tags"
