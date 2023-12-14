@@ -43,11 +43,11 @@ tasks:
       - ansible --one-line -m ping
 
   playbook:
-    desc: "Run an Ansible playbook by name"
+    desc: "Run an Ansible playbook"
     cmds:
-      - ansible-playbook {{.CLI_ARGS}}
+      - ansible-playbook {{.ANSIBLE_ARGS}} {{.CLI_ARGS}}
 
   playbook:debug:
-    desc: "Run an Ansible playbook by name with maximum debugging"
+    desc: "Run an Ansible playbook with maximum debugging"
     cmds:
-      - ansible-playbook -vvvv {{.CLI_ARGS}}
+      - ansible-playbook -vvvv {{.ANSIBLE_ARGS}} {{.CLI_ARGS}}
