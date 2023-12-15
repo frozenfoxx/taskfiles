@@ -5,20 +5,9 @@ env:
   ANSIBLE_CONFIG: "{{.USER_WORKING_DIR}}/ansible.cfg"
 
 vars:
-  ANSIBLE_ARGS: ""
+  ANSIBLE_ARGS: '{{default "" .ANSIBLE_ARGS}}'
 
 tasks:
-  install:
-    desc: "Install dependencies"
-    cmds:
-      - pip install -r requirements.txt
-      - task: galaxy
-
-  inventory:
-    desc: "List all inventory hosts"
-    cmds:
-      - ansible-inventory --graph
-
   galaxy:
     desc: "Install roles and collections from Ansible Galaxy"
     cmds:
@@ -31,6 +20,17 @@ tasks:
     cmds:
       - rm -rf roles_galaxy/*
       - rm -rf collections/*
+
+  install:
+    desc: "Install dependencies"
+    cmds:
+      - pip install -r requirements.txt
+      - task: galaxy
+
+  inventory:
+    desc: "List all inventory hosts"
+    cmds:
+      - ansible-inventory --graph
 
   lint:
     desc: "Check syntax"
