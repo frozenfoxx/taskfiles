@@ -2,7 +2,6 @@
 version: '3'
 
 vars:
-  TFVAR_FILE: ""
   TFPLAN: .tfplan
   TFDOC_OUTPUT: README.md
   TF_BACKEND: ""
@@ -12,7 +11,7 @@ tasks:
   apply:
     desc: "Apply changes to deployment"
     cmds:
-      - terraform apply -auto-approve -compact-warnings -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+      - terraform apply -auto-approve -compact-warnings {{.TERRAFORM_ARGS}}
 
   clean:
     desc: "Clean up current Terraform directory"
@@ -26,12 +25,12 @@ tasks:
   destroy:
     desc: "Destroy deployment"
     cmds:
-      - terraform destroy -auto-approve -input=false -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+      - terraform destroy -auto-approve -input=false {{.TERRAFORM_ARGS}}
   
   destroy:resource:
     desc: "Destroy resource by name"
     cmds:
-      - terraform destroy -auto-approve -input=false -var-file={{.TFVAR_FILE}} -target {{.CLI_ARGS}} {{.TERRAFORM_ARGS}}
+      - terraform destroy -auto-approve -input=false -target {{.CLI_ARGS}} {{.TERRAFORM_ARGS}}
 
   docs:
     desc: "Generate documentation"
@@ -51,7 +50,7 @@ tasks:
   lint:
     desc: "Run a Terraform linter"
     cmds:
-      - docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint --var-file={{.TFVAR_FILE}} --format=compact
+      - docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint ---format=compact
 
   output:
     desc: "Terraform output"
@@ -61,7 +60,7 @@ tasks:
   plan:
     desc: "Create a plan for deployment"
     cmds:
-      - terraform plan -compact-warnings -out={{.TFPLAN}} -var-file={{.TFVAR_FILE}} {{.TERRAFORM_ARGS}}
+      - terraform plan -compact-warnings -out={{.TFPLAN}} {{.TERRAFORM_ARGS}}
 
   update:
     desc: "Update modules"
