@@ -18,8 +18,8 @@ tasks:
   galaxy:clean:
     desc: "Clean roles and collections installed from Ansible Galaxy"
     cmds:
-      - rm -rf roles_galaxy/*
-      - rm -rf collections/*
+      - rm -rf {{.USER_WORKING_DIR}}/roles_galaxy/*
+      - rm -rf {{.USER_WORKING_DIR}}/collections/*
 
   install:
     desc: "Install dependencies"
