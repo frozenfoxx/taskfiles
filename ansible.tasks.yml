@@ -32,6 +32,11 @@ tasks:
     cmds:
       - ansible-inventory --graph
 
+  inventory:plugins:
+    desc: "List all inventory plugins"
+    cmds:
+      - ansible-doc -t inventory -l
+
   lint:
     desc: "Check syntax"
     cmds:
@@ -51,3 +56,4 @@ tasks:
     desc: "Run an Ansible playbook with maximum debugging"
     cmds:
       - ansible-playbook -vvvv {{.ANSIBLE_ARGS}} {{.CLI_ARGS}}
+
