@@ -1,0 +1,11 @@
+---
+version: '3'
+
+vars:
+
+tasks:
+#  env:
+#    desc: "Dump properties of the environment"
+#    cmds:
+#      - echo "USER_WORKING_DIR: {{.USER_WORKING_DIR}}"
+#      - echo "OS: {{OS}}"

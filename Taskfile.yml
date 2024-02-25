@@ -1,0 +1,30 @@
+---
+version: '3'
+
+includes:
+  ansible:
+    taskfile: ./ansible.tasks.yml
+  
+  git:
+    taskfile: ./git.tasks.yml
+
+  internals:
+    taskfile: ./internals.tasks.yml
+
+  packer:
+    taskfile: ./packer.tasks.yml
+
+  rclone:
+    taskfile: ./rclone.tasks.yml
+  
+  ssh:
+    taskfile: ./ssh.tasks.yml
+  
+  terraform:
+    taskfile: ./terraform.tasks.yml
+
+tasks:
+  default:
+    desc: "List available tasks"
+    cmds:
+      - task -l
