@@ -4,8 +4,12 @@ version: '3'
 vars:
 
 tasks:
-#  env:
-#    desc: "Dump properties of the environment"
-#    cmds:
-#      - echo "USER_WORKING_DIR: {{.USER_WORKING_DIR}}"
-#      - echo "OS: {{OS}}"
+  environment:
+    desc: "Dump properties of the environment"
+    cmds:
+      - |
+        echo "CLI_ARGS: {{.CLI_ARGS}}"
+        echo "OS: {{OS}}"
+        echo "ROOT_DIR: {{.ROOT_DIR}}"
+        echo "TASKFILE_DIR: {{.TASKFILE_DIR}}"
+        echo "USER_WORKING_DIR: {{.USER_WORKING_DIR}}"
