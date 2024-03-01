@@ -2,14 +2,36 @@
 version: '3'
 
 vars:
+  INCLUDE_DIR: '{{default "." .INCLUDE_DIR}}'
 
 tasks:
-  environment:
-    desc: "Dump properties of the environment"
+  list:
+    desc: "List of all internal references"
     cmds:
       - |
-        echo "CLI_ARGS: {{.CLI_ARGS}}"
-        echo "OS: {{OS}}"
-        echo "ROOT_DIR: {{.ROOT_DIR}}"
-        echo "TASKFILE_DIR: {{.TASKFILE_DIR}}"
-        echo "USER_WORKING_DIR: {{.USER_WORKING_DIR}}"
+        echo "CLI arguments | .CLI_ARGS | {{.CLI_ARGS}}"
+        echo "Operating System | OS | {{OS}}"
+        echo "Root directory | .ROOT_DIR | {{.ROOT_DIR}}"
+        echo "Taskfile directory | .TASKFILE_DIR | {{.TASKFILE_DIR}}"
+        echo "User working directory | .USER_WORKING_DIR | {{.USER_WORKING_DIR}}"
+    silent: true
+
+  task_search:
+    cmds:
+      - task: task_search:{{OS}}
+        silent: true
+
+  task_search:darwin:
+    cmds:
+      - task -l | grep "{{.CLI_ARGS}}:"
+      - '[ "{{.CLI_ARGS}}" != "" ] || echo -e "\nRun: \"task -- {SECTION_NAME}\" for filtering tasks"'
+
+  task_search:linux:
+    cmds:
+      - task -l | grep "{{.CLI_ARGS}}:"
+      - '[ "{{.CLI_ARGS}}" != "" ] || echo -e "\nRun: \"task -- {SECTION_NAME}\" for filtering tasks"'
+  
+  task_search:windows:
+    cmds:
+      - task -l | findstr "{{.CLI_ARGS}}:"
+      - '[ "{{.CLI_ARGS}}" != "" ] || echo -e "\nRun: \"task -- {SECTION_NAME}\" for filtering tasks"'

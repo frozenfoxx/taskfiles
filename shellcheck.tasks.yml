@@ -1,0 +1,44 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  DIRECTORY: '.'
+
+tasks:
+
+  install:
+    desc: Install ShellCheck if not available
+    cmds:
+      - task: install:{{OS}}
+
+  install:linux:
+    platforms: ['linux']
+    cmds:
+      - apt install shellcheck
+    status:
+      - type shellcheck > /dev/null
+
+  install:darwin:
+    platforms: ['darwin']
+    cmds:
+      - brew install shellcheck
+    status:
+      - type shellcheck > /dev/null
+
+  install:windows:
+    platforms: ['windows']
+    cmds:
+      - winget install --id koalaman.shellcheck
+    status:
+      - ! where shellcheck
+
+  lint:
+    desc: Lint Bash/sh scripts
+    cmds:
+      - shellcheck {{.DIRECTORY}}/*.sh
+  
+  version:
+    desc: ShellCheck version report
+    cmds:
+      - shellcheck --version

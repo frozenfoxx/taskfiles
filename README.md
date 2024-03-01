@@ -13,8 +13,21 @@ git submodule add https://github.com/frozenfoxx/taskfiles.git .taskfiles
 You can now update with the latest version of the taskfiles by issuing the following the command:
 
 ```shell
+task update
+```
+
+Alternatively, you can update with the following git command:
+
+```shell
 git submodule update --init --recursive
 ```
 
 To change the target branch, modify the `.gitmodules` file in your repository and update `branch` to the desired branch.
 
+## Tasks
+
+There are also some tasks available directly:
+
+```shell
+task
+```

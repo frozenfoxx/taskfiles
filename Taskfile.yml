@@ -17,14 +17,17 @@ includes:
   rclone:
     taskfile: ./rclone.tasks.yml
   
+  shellcheck:
+    taskfile: ./shellcheck.tasks.yml
+
   ssh:
     taskfile: ./ssh.tasks.yml
-  
+
   terraform:
     taskfile: ./terraform.tasks.yml
 
 tasks:
   default:
-    desc: "List available tasks"
     cmds:
-      - task -l
+      - task: internals:task_search
+    silent: true
