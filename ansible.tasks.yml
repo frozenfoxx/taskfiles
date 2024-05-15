@@ -12,14 +12,21 @@ tasks:
     desc: "Install roles and collections from Ansible Galaxy"
     cmds:
       - task: galaxy:clean
-      - ansible-galaxy install -p {{.USER_WORKING_DIR}}/roles_galaxy -r {{.USER_WORKING_DIR}}/requirements.yml
       - ansible-galaxy collection install -p {{.USER_WORKING_DIR}}/collections -r {{.USER_WORKING_DIR}}/requirements.yml
+      - ansible-galaxy role install -p {{.USER_WORKING_DIR}}/roles_galaxy -r {{.USER_WORKING_DIR}}/requirements.yml
 
   galaxy:clean:
     desc: "Clean roles and collections installed from Ansible Galaxy"
     cmds:
       - rm -rf {{.USER_WORKING_DIR}}/roles_galaxy/*
       - rm -rf {{.USER_WORKING_DIR}}/collections/*
+
+  galaxy:force:
+    desc: "Force install roles and collections from Ansible Galaxy"
+    cmds:
+      - task: galaxy:clean
+      - ansible-galaxy collection install -f -p {{.USER_WORKING_DIR}}/collections -r {{.USER_WORKING_DIR}}/requirements.yml
+      - ansible-galaxy role install -f -p {{.USER_WORKING_DIR}}/roles_galaxy -r {{.USER_WORKING_DIR}}/requirements.yml
 
   install:
     desc: "Install dependencies"
