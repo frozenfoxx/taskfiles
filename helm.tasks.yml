@@ -22,4 +22,4 @@ tasks:
     desc: Install a chart
     cmds:
       - helm upgrade --install --values {{.VALUES_YAML}} --namespace {{.NAMESPACE}} --create-namespace --version {{.CHART_VERSION}} {{.CHART_NAME}} {{.CHART_REPO}}
-    dir: {{.CHART_DIR}}
+    dir: "{{.CHART_DIR}}"
