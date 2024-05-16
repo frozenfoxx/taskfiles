@@ -1,0 +1,25 @@
+---
+version: "3"
+
+vars:
+  CHART_DIR: '{{default "" .CHART_DIR}}'
+  CHART_NAME: '{{default "" .CHART_NAME}}'
+  CHART_REPO: '{{default "" .CHART_REPO}}'
+  CHART_VERSION: '{{default "" .CHART_VERSION}}'
+  NAMESPACE: '{{default "" .NAMESPACE}}'
+  REPO_NAME: '{{default "" .REPO_NAME}}'
+  REPO_URL: '{{default "" .REPO_URL}}'
+  VALUES_YAML: '{{default "" .VALUES_YAML}}'
+
+tasks:
+  repo:add:
+    desc: Add a repository
+    cmds:
+      - helm repo add {{.REPO_NAME}} {{.REPO_URL}}
+      - helm repo update
+
+  install:
+    desc: Install a chart
+    cmds:
+      - helm upgrade --install --values {{.VALUES_YAML}} --namespace {{.NAMESPACE}} --create-namespace --version {{.CHART_VERSION}} {{.CHART_NAME}} {{.CHART_REPO}}
+    dir: {{.CHART_DIR}}
