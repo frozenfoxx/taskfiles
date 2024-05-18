@@ -22,3 +22,13 @@ tasks:
     desc: Install a chart
     cmds:
       - helm upgrade --install --values {{.CHART_DIR}}/{{.VALUES_YAML}} --namespace {{.NAMESPACE}} --create-namespace --version {{.CHART_VERSION}} {{.CHART_NAME}} {{.CHART_REPO}}
+
+  uninstall:
+    desc: Uninstalls a chart
+    cmds:
+      - helm uninstall {{.CHART_NAME}}
+
+  uninstall:dryrun:
+    desc: Uninstalls a chart (dry-run)
+    cmds:
+      - helm uninstall {{.CHART_NAME}} --dry-run
