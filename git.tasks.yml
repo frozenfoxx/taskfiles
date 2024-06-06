@@ -4,6 +4,11 @@ version: '3'
 vars:
 
 tasks:
+  clone:
+    desc: "Clone a repository"
+    cmds:
+      - git clone {{.CLI_ARGS}}
+
   fetch:
     desc: "Fetch from origin"
     cmds:
