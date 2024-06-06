@@ -5,4 +5,4 @@ tasks:
   compose:deploy:
     desc: "Deploy compose files"
     cmds:
-      - docker compose up -d -f {{.CLI_ARGS}}
+      - docker compose -f {{.CLI_ARGS}} up -d
