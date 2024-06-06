@@ -38,7 +38,7 @@ tasks:
   reset:dir:
     desc: "Reset all changes in a directory tree path"
     cmds:
-      - git checkout -f HEAD -- {{.CLI_ARGS}}
+      - git reset --hard -- {{.CLI_ARGS}}
 
   stash:
     desc: "Stash changes"
