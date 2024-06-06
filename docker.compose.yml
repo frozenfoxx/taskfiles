@@ -1,0 +1,8 @@
+---
+version: '3'
+
+tasks:
+  deploy:
+    desc: "Deploy compose files"
+    cmds:
+      - docker compose up -d -f {{.CLI_ARGS}}
