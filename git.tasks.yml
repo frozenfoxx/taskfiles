@@ -38,7 +38,7 @@ tasks:
   reset:dir:
     desc: "Reset all changes in a directory tree path"
     cmds:
-      - git reset --hard -- {{.CLI_ARGS}}
+      - git restore --source=HEAD --staged --worktree -- {{.CLI_ARGS}}
 
   stash:
     desc: "Stash changes"
