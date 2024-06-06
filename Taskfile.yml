@@ -5,8 +5,8 @@ includes:
   ansible:
     taskfile: ./ansible.tasks.yml
   
-  docker:compose:
-    taskfile: ./docker.compose.yml
+  docker:
+    taskfile: ./docker.yml
 
   git:
     taskfile: ./git.tasks.yml

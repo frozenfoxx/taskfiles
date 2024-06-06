@@ -2,7 +2,7 @@
 version: '3'
 
 tasks:
-  deploy:
+  compose:deploy:
     desc: "Deploy compose files"
     cmds:
       - docker compose up -d -f {{.CLI_ARGS}}
