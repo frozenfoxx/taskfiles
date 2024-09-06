@@ -7,6 +7,11 @@ tasks:
     cmds:
       - docker compose -f {{.CLI_ARGS}} up -d
 
+  compose:destroy:
+    desc: "Destroy services from a compose file"
+    cmds:
+      - docker compose -f {{.CLI_ARGS}} down
+
   compose:upgrade:
     desc: "Upgrade containers within a compose file"
     cmds:
