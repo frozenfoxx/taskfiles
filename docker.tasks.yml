@@ -3,6 +3,11 @@ version: '3'
 
 tasks:
   compose:deploy:
-    desc: "Deploy compose files"
+    desc: "Deploy a compose file"
     cmds:
       - docker compose -f {{.CLI_ARGS}} up -d
+
+  compose:upgrade:
+    desc: "Upgrade containers within a compose file"
+    cmds:
+      - docker compose -f {{.CLI_ARGS}} pull
