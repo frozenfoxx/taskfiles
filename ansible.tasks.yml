@@ -37,7 +37,7 @@ tasks:
   inventory:
     desc: "List all inventory hosts"
     cmds:
-      - ansible-inventory --graph
+      - ansible-inventory --graph {{.CLI_ARGS}}
 
   inventory:plugins:
     desc: "List all inventory plugins"
