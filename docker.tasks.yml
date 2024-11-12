@@ -12,6 +12,11 @@ tasks:
     cmds:
       - docker compose -f {{.CLI_ARGS}} down
 
+  compose:logs:
+    desc: "Check logs from a compose file"
+    cmds:
+      - docker compose -f {{.CLI_ARGS}} logs -f
+
   compose:upgrade:
     desc: "Upgrade containers within a compose file"
     cmds:
