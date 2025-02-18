@@ -8,6 +8,11 @@ vars:
   ANSIBLE_ARGS: '{{default "" .ANSIBLE_ARGS}}'
 
 tasks:
+  facts:
+    desc: "Retrieve facts about a host"
+    cmds:
+      - ansible {{.CLI_ARGS}} -m ansible.builtin.setup
+
   galaxy:
     desc: "Install roles and collections from Ansible Galaxy"
     cmds:
