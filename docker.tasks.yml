@@ -21,3 +21,8 @@ tasks:
     desc: "Upgrade containers within a compose file"
     cmds:
       - docker compose -f {{.CLI_ARGS}} pull
+  
+  compose:validate:
+    desc: "Validate a configuration"
+    cmds:
+      - docker compose -f {{.CLI_ARGS}} config
