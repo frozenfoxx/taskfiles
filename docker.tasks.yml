@@ -2,6 +2,28 @@
 version: '3'
 
 tasks:
+  clean:
+    desc: "Remove all unused containers, volumes, and images"
+    cmds:
+      - task: clean:containers
+      - task: clean:images
+      - task: clean:volumes
+
+  clean:containers:
+    desc: "Remove all stopped containers"
+    cmds:
+      - docker container prune -f
+
+  clean:images:
+    desc: "Remove all unused images"
+    cmds:
+      - docker image prune -af
+
+  clean:volumes:
+    desc: "Remove all unused volumes"
+    cmds:
+      - docker volume prune -af
+
   compose:deploy:
     desc: "Deploy a compose file"
     cmds:
