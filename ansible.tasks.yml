@@ -44,6 +44,16 @@ tasks:
     cmds:
       - ansible-inventory --graph {{.CLI_ARGS}}
 
+  inventory:host:
+    desc: "List inventory about a target host"
+    cmds:
+      - ansible-inventory --host {{.CLI_ARGS}}
+
+  inventory:list:
+    desc: "List all inventory hosts in list format"
+    cmds:
+      - ansible-inventory all --list-hosts
+
   inventory:plugins:
     desc: "List all inventory plugins"
     cmds:
